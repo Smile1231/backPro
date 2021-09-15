@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zys.dao.IUserInfoMapper">
+    <select id="addUser" parameterType="com.zys.pojo.po.UserInfo" statementType="CALLABLE"
+            resultType="java.lang.Integer">
+        call addUser(#{openId,jdbcType=VARCHAR,mode=IN},
+        #{nickName,jdbcType=VARCHAR,mode=IN},
+        #{gender,jdbcType=VARCHAR,mode=IN},
+        #{country,jdbcType=VARCHAR,mode=IN},
+        #{province,jdbcType=VARCHAR,mode=IN},
+        #{city,jdbcType=VARCHAR,mode=IN},
+        #{imageUrlPath,jdbcType=VARCHAR,mode=IN},
+        #{resultCode,jdbcType=INTEGER,mode=OUT}
+        )
+    </select>
+
+    <update id="addUserInfo" parameterType="com.zys.pojo.po.UserInfo">
+        update UserInfo set nickName = #{nickName}
+        ,gender = #{gender}
+        ,country = #{country}
+        ,province = #{province}
+        ,city = #{city}
+        ,imageUrlPath = #{imageUrlPath}
+        ,createtime = #{createtime}
+        where openID = #{openId}
+    </update>
+</mapper>

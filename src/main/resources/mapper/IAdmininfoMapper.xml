@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zys.dao.IAdminInfoMapper">
+    <!--type 是指返回什么类型的对象-->
+    <resultMap id="getAllByName" type="com.zys.pojo.po.AdminInfo">
+        <!--主键字段-->
+        <!--property表示com.domain.Student的字段,column为表中的字段，进行配置映射-->
+        <id property="id" column="ID"/>
+        <!-- 非主键字段 -->
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <!-- 多对多关联映射：collection , property表示集合类型属性名称，
+        JavaType是用来指定pojo中属性的类型，而ofType指定的是 映射到list集合属性中pojo的类型
+        ofType表示集合中的对象是什么类型 -->
+        <collection property="roles" javaType="java.util.List" ofType="com.zys.pojo.po.RoleInfo" fetchType="lazy">
+            <id property="rid" column="rid"/>
+            <result property="rName" column="r_name"/>
+            <result property="rDescription" column="r_description"/>
+        </collection>
+
+    </resultMap>
+
+    <!--<select id="findAllByUsername" parameterType="string" resultMap="getAllByName" >
+        SELECT a.ID,a.username,a.`password`, b.r_name,b.r_description,b.rid
+        FROM AdminInfo a , RoleInfo b , admin_role c
+        where a.ID = c.admin_id AND b.rid = c.role_id AND  a.username = #{username}
+        ;
+    </select>-->
+
+
+</mapper>
